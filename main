@@ -1,0 +1,36 @@
+local GetService =
+    setmetatable(
+    {},
+    {
+        __index = function(self, key)
+            return game:GetService(key)
+        end
+    }
+    
+)
+
+local RunService = GetService.RunService
+
+ 
+
+RunService.RenderStepped:Connect(
+function()
+
+local Utilities , Lxyo , Part = game:GetService("UserInputService") , Vector3.new(0, 1, 0) , game.Players.LocalPlayer.Character.HumanoidRootPart
+
+if Flight.Main.Enabled then
+    if Utilities:IsKeyDown(Flight.Input.Key.W) then
+        Lxyo = Lxyo + (Workspace.CurrentCamera.CoordinateFrame.LookVector * Flight.Main.Speed)
+    end
+    if Utilities:IsKeyDown(Flight.Input.Key.A) then
+        Lxyo = Lxyo + (Workspace.CurrentCamera.CoordinateFrame.RightVector * - Flight.Main.Speed)
+    end
+    if Utilities:IsKeyDown(Flight.Input.Key.S) then
+        Lxyo = Lxyo + (Workspace.CurrentCamera.CoordinateFrame.LookVector * - Flight.Main.Speed)
+    end
+    if Utilities:IsKeyDown(Flight.Input.Key.D) then
+        Lxyo = Lxyo + (Workspace.CurrentCamera.CoordinateFrame.RightVector * Flight.Main.Speed)
+    end
+    Part.Velocity = Lxyo
+end
+end)
